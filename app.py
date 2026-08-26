@@ -93,12 +93,13 @@ if uploaded_file is not None:
             with open(temp_path, "wb") as f:
                 f.write(uploaded_file.getbuffer())
                 
-data, sample_rate = sf.read(temp_path)
-waveform = torch.tensor(data, dtype=torch.float32)
-if waveform.ndim == 1:
-    waveform = waveform.unsqueeze(0)
-else:
-    waveform = waveform.T
+            data, sample_rate = sf.read(temp_path)
+            waveform = torch.tensor(data, dtype=torch.float32)
+            if waveform.ndim == 1:
+                waveform = waveform.unsqueeze(0)
+            else:
+                waveform = waveform.T
+            
             if waveform.shape[0] > 1:
                 waveform = torch.mean(waveform, dim=0, keepdim=True)
             if sample_rate != 16000:
