@@ -50,10 +50,10 @@ def predict_audio(file_path):
     
     if score > 0.5:
         confidence = score * 100
-        return f"⚠️ FAKE / Cloned — {confidence:.1f}% confidence"
+        return f" !!FAKE / Cloned — {confidence:.1f}% confidence"
     else:
         confidence = (1 - score) * 100
-        return f"✅ REAL (Bonafide) — {confidence:.1f}% confidence"
+        return f" REAL (Bonafide) — {confidence:.1f}% confidence"
 
 demo = gr.Interface(
     fn=predict_audio,
