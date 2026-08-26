@@ -5,6 +5,7 @@ import torch.nn as nn
 import torchaudio
 import torchaudio.transforms as T
 from transformers import AutoProcessor, Wav2Vec2Model
+import soundfile as sf
 
 # Page Configuration for Professional Appearance
 st.set_page_config(
