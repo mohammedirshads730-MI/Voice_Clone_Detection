@@ -76,7 +76,7 @@ st.markdown("Smart India Hackathon | Enterprise Voice Authentication Dashboard")
 st.markdown("---")
 
 # File Ingestion
-uploaded_file = st.file_uploader("Upload Audio Sample for Forensic Verification", type=["wav", "mp3", "flac"])
+uploaded_file = st.file_uploader("Upload Audio Sample for Forensic Verification", type=["wav", "mp3", "m4a", "flac"])
 
 if uploaded_file is not None:
     st.audio(uploaded_file, format='audio/wav')
