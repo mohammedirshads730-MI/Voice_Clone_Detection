@@ -93,7 +93,7 @@ if uploaded_file is not None:
             with open(temp_path, "wb") as f:
                 f.write(uploaded_file.getbuffer())
                 
-            data, sample_rate = sf.read(temp_path)
+data, sample_rate = sf.read(temp_path)
 waveform = torch.tensor(data, dtype=torch.float32)
 if waveform.ndim == 1:
     waveform = waveform.unsqueeze(0)
