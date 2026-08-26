@@ -1,5 +1,7 @@
 torch
 torchaudio
+torchvision
+torchcodec
 transformers
 gradio
 soundfile
