@@ -98,12 +98,20 @@ def train_model():
     print("Starting training epoch...")
     classifier.train()
     for batch_idx, (waveforms, batch_labels) in enumerate(dataloader):
-        # Using dummy 768-D feature representation for the baseline loop
-        dummy_features = torch.randn(waveforms.shape[0], 768)
+        print("Loading Wav2Vec2 feature extractor...")
+    processor = AutoProcessor.from_pretrained("facebook/wav2vec2-base-960h")
+    feature_model = Wav2Vec2Model.from_pretrained("facebook/wav2vec2-base-960h")
+    feature_model.eval()
+
+    for batch_idx, (waveforms, batch_labels) in enumerate(dataloader):
+        with torch.no_grad():
+            inputs = processor(waveforms.numpy(), sampling_rate=16000, return_tensors="pt", padding=True)
+            outputs = feature_model(**inputs)
+            features = outputs.last_hidden_state.mean(dim=1)
 
         optimizer.zero_grad()
-        outputs = classifier(dummy_features).squeeze(1)
-        loss = criterion(outputs, batch_labels)
+        preds = classifier(features).squeeze(1)
+        loss = criterion(preds, batch_labels)
         loss.backward()
         optimizer.step()
 
